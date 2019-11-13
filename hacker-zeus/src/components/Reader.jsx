@@ -9,7 +9,7 @@ export default function Reader(props) {
 	useEffect(() => {
 		if (props.data !== null) {
 			setLoading(true);
-			axios.post(`https://hackerzeus.appspot.com/parse`, {url: props.data.url}).then(res => {
+			axios.post(`https://hackerzeus.appspot.com/parse`, {url: props.data.url, type: 'html'}).then(res => {
 				setArticle(res.data.article);
 				setLoading(false);
 			})
