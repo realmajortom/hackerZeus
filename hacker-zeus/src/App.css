@@ -1,22 +1,181 @@
 .App {
-  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  display: grid;
+  grid-template-columns: 380px auto;
+  grid-template-rows: 40px calc(100vh - 40px);
+  grid-template-areas:
+    'nav nav'
+    'list reader';
 }
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.Nav {
+  border-bottom: 1px solid #eee;
+  grid-area: nav;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+.List {
+  grid-area: list;
+  border-right: 1px solid #eee;
+  overflow: scroll;
+}
+.Reader {
+  grid-area: reader;
 }
 
-.App-link {
-  color: #09d3ac;
+
+
+/*********** general ***********/
+h1 {
+  margin: 0 15px;
+  padding: 0;
+  font-family: 'Roboto Mono', monospace;
 }
+h2, h3 {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+
+/*********** Nav ***********/
+.navBtnCont {
+  width: 380px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.NavBtn {
+  padding: 4px 10px;
+  background-color: #fff;
+  color: #000;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #bbb;
+  border-radius: 2px;
+  outline: none;
+  transition: all 200ms ease 0ms;
+}
+
+.NavBtn:hover, .NavBtn:active, .NavCurrent {
+  cursor: pointer;
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.navLeft {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.navGear {
+  margin-left: 12px;
+  fill: #bbb;
+  transition: fill 200ms ease 0ms;
+}
+.navGear:hover {
+  fill: #000;
+  cursor: pointer;
+}
+
+
+/*********** List ***********/
+/*** Loading Animation ***/
+.ListLoading {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.loadRing {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+}
+.loadRing:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #bbb;
+  border-color: #bbb transparent #bbb transparent;
+  animation: loadRing 1.2s linear infinite;
+}
+@keyframes loadRing {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/*** List Item ***/
+.ListItem {
+  position: relative;
+  width: 90%;
+  margin: 14px auto;
+  padding: 10px;
+  height: 85px;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20);
+}
+
+.listBtn {
+  font-weight: 600;
+  font-size: 12pt;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+.listBtn:hover {
+  cursor: pointer;
+}
+
+.listInfo {
+  width: calc(100% - 20px);
+  margin: 0 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  font-size: 10pt;
+  color: #bbb;
+  position: absolute;
+  bottom: 5px;
+}
+
+.infoLeftBottom{
+  margin-top: 2px;
+}
+
+.infoRight {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.infoDate {
+  margin-right: 15px;
+}
+
+.ptsSpan {
+  width: 60px;
+  text-align: end;
+}
+
+
+
+
+/*********** Reader ***********/
