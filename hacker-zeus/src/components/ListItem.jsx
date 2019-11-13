@@ -22,25 +22,27 @@ export default function ListItem(props) {
 			<li className='ListItem' id={props.data.id}>
 
 				<button onClick={() => props.setReader(data)} className='listBtn'>
-					{title}
-				</button>
 
-				<div className='listInfo'>
+					<h2 className='listItemTitle'>{title}</h2>
 
-					<div className='infoLeft'>
-						<span>{by}</span>
-						<div className='infoLeftBottom'>
-							<span className='infoDate'>{`${time.month}.${time.date}`}</span>
-							<span>{`${time.hour}:${time.min} ${time.ampm}`}</span>
+					<div className='listInfo'>
+
+						<div className='infoLeft'>
+							<span>{by}</span>
+							<div className='infoLeftBottom'>
+								<span className='infoDate'>{`${time.month}.${time.date}`}</span>
+								<span>{`${time.hour}:${time.min} ${time.ampm}`}</span>
+							</div>
 						</div>
+
+						<div className='infoRight'>
+							{desc > 0 && <span>Comments: {desc}</span>}
+							<div className='ptsSpan'><span>Pts: {score}</span></div>
+						</div>
+
 					</div>
 
-					<div className='infoRight'>
-						{desc > 0 && <span>Comments: {desc}</span>}
-						<div className='ptsSpan'><span>Pts: {score}</span></div>
-					</div>
-
-				</div>
+				</button>
 
 			</li>
 		</>

@@ -26,13 +26,14 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [reading, setReading] = useState(null);
   const [listType, setListType] = useState();
+  const [loadingMore, setLoadingMore] = useState(false);
 
 
-  const loadItems = async (first, data) => {
-    let itemsInRange = first === 0 ? [] : items;
-    let count = first + loadCount < data.length ? loadCount : data.length;
+  const loadItems = async (data, fresh) => {
+    let itemsInRange = [];
+    let count = loadCount < data.length ? loadCount : data.length;
 
-    for (let i = first; i < count; i++) {
+    for (let i = 0; i < count; i++) {
       await API.get(`${reqs['item']}${data[i]}.json`).then(res => {
         if (res.data !== null) {
           itemsInRange.push(res.data);
@@ -40,8 +41,14 @@ export default function App() {
       });
     }
 
-    setItems(itemsInRange);
-    setLoading(false);
+    if (items.length < 1 || fresh === true) {
+      setItems(itemsInRange);
+      setLoading(false);
+    } else {
+      let allItems = await items.concat(itemsInRange);
+      setItems(allItems);
+      setLoadingMore(false);
+    }
   }
 
 
@@ -52,7 +59,7 @@ export default function App() {
     API.get(`${reqs[req]}`).then(res => {
       if (res.data.length > 0) {
         setItemIDs(res.data);
-        loadItems(0, res.data);
+        loadItems(res.data, true);
       } else {
         setLoading(false);
         alert('Error getting data from server');
@@ -61,12 +68,18 @@ export default function App() {
   }
 
 
+  const loadMore = () => {
+    setLoadingMore(true);
+    loadItems(itemIDs.slice(items.length), false);
+  }
+
+
   useMount(() => requestIDs('new'));
 
   return (
     <div className="App">
       <Nav makeReq={requestIDs} />
-      <List loading={loading} items={items} setReader={setReading} type={listType} />
+      <List loading={loading} items={items} setReader={setReading} type={listType} load={loadMore} loadingMore={loadingMore} />
       <Reader data={reading} />
     </div>
   );
