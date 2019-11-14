@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import './App.css';
 import Nav from './components/Nav';
 import Reader from './components/Reader';
@@ -22,14 +22,13 @@ const useMount = mount => useEffect(mount, []);
 export default function App() {
   const [items, setItems] = useState([]);
   const [itemIDs, setItemIDs] = useState([]);
-  const [loadCount, setLoadCount] = useState(30);
   const [loading, setLoading] = useState(true);
   const [reading, setReading] = useState(null);
-  const [listType, setListType] = useState();
+  const [loadCount, setLoadCount] = useState(localStorage.getItem('count') ? localStorage.getItem('count') : 30);
   const [loadingMore, setLoadingMore] = useState(false);
 
 
-  const loadItems = async (data, fresh) => {
+  const loadItems = useCallback(async (data, newList) => {
     let itemsInRange = [];
     let count = loadCount < data.length ? loadCount : data.length;
 
@@ -41,7 +40,7 @@ export default function App() {
       });
     }
 
-    if (items.length < 1 || fresh === true) {
+    if (items.length < 1 || newList === true) {
       setItems(itemsInRange);
       setLoading(false);
     } else {
@@ -49,14 +48,13 @@ export default function App() {
       setItems(allItems);
       setLoadingMore(false);
     }
-  }
+  }, [items, loadCount]);
 
 
-  const requestIDs = (req) => {
+  const getIDs = (listType) => {
     setLoading(true);
-    setListType(req);
 
-    API.get(`${reqs[req]}`).then(res => {
+    API.get(`${reqs[listType]}`).then(res => {
       if (res.data.length > 0) {
         setItemIDs(res.data);
         loadItems(res.data, true);
@@ -65,22 +63,33 @@ export default function App() {
         alert('Error getting data from server');
       }
     });
-  }
+  };
 
 
   const loadMore = () => {
     setLoadingMore(true);
     loadItems(itemIDs.slice(items.length), false);
-  }
+  };
 
 
-  useMount(() => requestIDs('new'));
+  useMount(() => getIDs('top'));
+
 
   return (
     <div className="App">
-      <Nav makeReq={requestIDs} />
-      <List loading={loading} items={items} setReader={setReading} type={listType} load={loadMore} loadingMore={loadingMore} />
+
+      <Nav makeReq={getIDs} setCount={setLoadCount} />
+
+      <List
+        loading={loading}
+        items={items}
+        setReader={setReading}
+        load={loadMore}
+        loadingMore={loadingMore}
+      />
+
       <Reader data={reading} />
+
     </div>
   );
 }

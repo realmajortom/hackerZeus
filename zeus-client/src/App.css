@@ -8,39 +8,22 @@
     'list reader';
 }
 .Nav {
+  z-index: 11;
   grid-area: nav;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .List {
+  z-index: 10;
   grid-area: list;
-  border-top: 1px solid #efefef;
   overflow: scroll;
+  border-top: 1px solid #eee;
 }
 .Reader {
   grid-area: reader;
   overflow: scroll;
   background-color: #efefef;
-}
-
-
-
-/*********** general ***********/
-h1 {
-  margin: 0 15px;
-  padding: 0;
-  font-family: 'Roboto Mono', monospace;
-}
-h2, h3 {
-  margin: 0;
-  padding: 0;
-}
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  user-select: none;
 }
 
 
@@ -75,6 +58,18 @@ ul {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  z-index: 11;
+}
+
+.navRight {
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  /* box-shadow: 2px 1px 1px 0 rgba(0,0,0,0.14), 2px 2px 1px 0 rgba(0,0,0,0.12), 2px 1px 3px 0 rgba(0,0,0,0.20); */
 }
 
 .navGear {
@@ -95,6 +90,13 @@ ul {
   margin: 0 0 0 12px;
   padding: 0;
   outline: none;
+}
+
+.siteTitle {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 26px;
+  font-weight: 700;
+  margin-right: 15px;
 }
 
 
@@ -148,17 +150,25 @@ ul {
 }
 
 /*** List Item ***/
+.articleList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
 .ListItem {
   position: relative;
   width: 90%;
   margin: 14px auto;
   padding: 10px;
-  height: 85px;
+  height: 80px;
   background-color: white;
   border-radius: 4px;
   box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20);
   transition: all 200ms ease 0ms;
 }
+
 .ListItem:hover {
   box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
 }
@@ -178,10 +188,12 @@ ul {
 }
 
 .listItemTitle {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 13pt;
   position: absolute;
   top: 10px;
+  padding: 0;
+  margin: 0 10px 0 0;
 }
 
 .listInfo {
@@ -197,8 +209,28 @@ ul {
   bottom: 5px;
 }
 
+.listHost {
+  font-size: 9pt;
+  color: #a1a1a1;
+  text-decoration: none;
+}
+
+.listHost:hover, .listHost:active {
+  color: #008af6;
+  text-decoration: underline;
+}
+
+.listHost:visited {
+  color: #a568e5;
+  text-decoration: underline;
+}
+
 .infoLeftBottom{
-  margin-top: 2px;
+  margin-top: 5px;
+}
+
+.infoLeft {
+  max-width: 220px;
 }
 
 .infoRight {
@@ -206,8 +238,12 @@ ul {
   flex-flow: row nowrap;
 }
 
-.infoDate {
-  margin-right: 15px;
+.infoTime {
+  margin: 0 0 0 8px;
+}
+
+.infoDivider {
+  margin: 0 12px;
 }
 
 .ptsSpan {
@@ -229,7 +265,7 @@ ul {
   transition: fill 200ms ease 0ms;
 }
 .loadArrow:hover, .loadArrow:active {
-  fill: #008af6;
+  fill: #000;
 }
 
 .loadMoreBtn {
@@ -248,7 +284,7 @@ ul {
 /*********** Reader ***********/
 .noLoadMsg {
   font-size: 16pt;
-  color: #bbb;
+  color: #ababab;
 }
 
 .Article {
@@ -267,10 +303,12 @@ ul {
 }
 
 .articleTitle {
+  /* font-family: 'Crimson Text', serif; */
   font-family: 'Open Sans', sans-serif;
-  font-size: 1.8rem;
+  font-size: 22pt;
   font-weight: 700;
   margin: 30px 0;
+  text-align: center;
 }
 
 .articleMeta {
@@ -291,7 +329,8 @@ ul {
   text-decoration: none;
 }
 
-.articleMeta a:hover, .articleMeta a:active {
+.articleMeta a:hover, .articleMeta a:active,
+.articleContent a:hover, .articleContent a:active {
   color: #008af6;
   text-decoration: underline;
 }
@@ -299,3 +338,67 @@ ul {
 .articleMeta a:visited {
   color: #a568e5;
 }
+
+.articleContent {
+  text-align: left;
+  padding: 0 70px;
+  /* font-family: 'Crimson Text', serif; */
+  color: rgba(0,0,0,0.87);
+}
+
+.articleContent p {
+  line-height: 1.7;
+}
+
+.articleContent a {
+  color: #6a6a6a;
+  text-decoration: underline;
+}
+
+.articleContent img {
+  max-width: 100%;
+  display: block;
+  margin: 20px auto;
+}
+
+code {
+  white-space: pre-wrap;
+}
+
+pre {
+  white-space: pre-wrap;
+  overflow: auto;
+  background-color: #f4f4f4;
+  padding: 10px 15px;
+  border-radius: 4px;
+}
+
+
+
+
+/* img {
+  font-weight: 100;
+  font-size: 9pt;
+  color: #ababab;
+  display: block;
+  position: relative;
+}
+
+img:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: -10px;
+  left: 0;
+  height: calc(100% + 10px);
+}
+
+img:after {
+  content: "Broken Image";
+  display: block;
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+} */

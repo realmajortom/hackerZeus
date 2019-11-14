@@ -1,11 +1,10 @@
 import React from 'react';
+import * as ParseUrl from 'url-parse';
 
 export default function ListItem(props) {
 	const data = props.data;
-	const by = data.by;
-	const score = data.score;
-	const title = data.title;
-	const desc = data.descendants;
+
+	const host = new ParseUrl(data.url, {}).host;
 
 	const date = new Date(data.time * 1000);
 
@@ -17,27 +16,32 @@ export default function ListItem(props) {
 		ampm: date.getHours() < 12 ? 'am' : 'pm'
 	}
 
+
 	return (
 		<>
 			<li className='ListItem' id={props.data.id}>
 
 				<button onClick={() => props.setReader(data)} className='listBtn'>
 
-					<h2 className='listItemTitle'>{title}</h2>
+					<p className='listItemTitle' style={data.title.length >= 72 ? {fontSize: '11pt'} : {}}>{data.title}</p>
 
 					<div className='listInfo'>
 
 						<div className='infoLeft'>
-							<span>{by}</span>
+
+							<a href={data.url} target='_blank' rel='noopener noreferrer' className='listHost'>{host}</a>
+
 							<div className='infoLeftBottom'>
 								<span className='infoDate'>{`${time.month}.${time.date}`}</span>
-								<span>{`${time.hour}:${time.min} ${time.ampm}`}</span>
+								<span className='infoTime'>{`${time.hour}:${time.min} ${time.ampm}`}</span>
+								<span className='infoDivider'>|</span>
+								<span>{data.by}</span>
 							</div>
 						</div>
 
 						<div className='infoRight'>
-							{desc > 0 && <span>Comments: {desc}</span>}
-							<div className='ptsSpan'><span>Pts: {score}</span></div>
+							{data.descendants > 0 && <span>Cmt: {data.descendants}</span>}
+							<div className='ptsSpan'><span>Pt: {data.score}</span></div>
 						</div>
 
 					</div>
