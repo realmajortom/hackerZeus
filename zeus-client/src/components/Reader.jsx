@@ -14,7 +14,7 @@ export default function Reader(props) {
 			setLoading(true);
 
 			axios
-				.post(`https://hackerzeus.appspot.com/parse`, {url: props.data.url, type: 'markdown', agent: 'desktop'})
+				.post(`https://hackerzeus.appspot.com/parse`, {url: props.data.url, type: 'markdown', agent: props.agent})
 				.then(res => {
 					if (res.data.article) {
 						setArticle(res.data.article);
@@ -27,7 +27,7 @@ export default function Reader(props) {
 				});
 		};
 
-	}, [props.data, setArticle, setLoading, setError]);
+	}, [props.data, props.agent, setArticle, setLoading, setError]);
 
 
 
@@ -35,7 +35,7 @@ export default function Reader(props) {
 		<div className={'Reader ' + (loading !== false || error === true ? 'Loading' : '')}>
 
 			{loading === false && error === false
-				? <Article data={article} />
+				? <Article data={article} font={props.font} fontSize={props.fontSize} />
 				: loading === true
 					? <div className="loadRing"></div>
 					: error === true

@@ -4,28 +4,27 @@ import Nav from './components/Nav';
 import Reader from './components/Reader';
 import List from './components/List';
 import API from './api/API';
+import reqs from './api/reqs'
 
-const reqs = {
-  item: 'item/',
-  updates: 'updates.json',
-  top: 'topstories.json',
-  new: 'newstories.json',
-  best: 'beststories.json',
-  ask: 'askstories.json',
-  show: 'showstories.json',
-  jobs: 'jobstories.json'
-}
+
+const storedFontSize = localStorage.getItem('fontSize');
+const storedCount = localStorage.getItem('count');
+const storedFont = localStorage.getItem('font');
 
 const useMount = mount => useEffect(mount, []);
 
 
 export default function App() {
-  const [items, setItems] = useState([]);
-  const [itemIDs, setItemIDs] = useState([]);
+  const [font, setFont] = useState(storedFont ? storedFont : "'Open Sans', sans-serif");
+  const [fontSize, setFontSize] = useState(storedFontSize ? storedFontSize : '12');
+  const [loadCount, setLoadCount] = useState(storedCount ? storedCount : '30');
+  const [agent, setAgent] = useState('desktop');
+
+  const [loadingMore, setLoadingMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [reading, setReading] = useState(null);
-  const [loadCount, setLoadCount] = useState(localStorage.getItem('count') ? localStorage.getItem('count') : 30);
-  const [loadingMore, setLoadingMore] = useState(false);
+  const [itemIDs, setItemIDs] = useState([]);
+  const [items, setItems] = useState([]);
 
 
   const loadItems = useCallback(async (data, newList) => {
@@ -72,13 +71,31 @@ export default function App() {
   };
 
 
+  useEffect(() => {
+    if (fontSize < 1 || fontSize > 100) {
+      alert('What on earth...');
+      localStorage.setItem('fontSize', 12);
+      setFontSize(11);
+    } else {
+      localStorage.setItem('fontSize', fontSize);
+    }
+  }, [fontSize]);
+
+
   useMount(() => getIDs('top'));
 
 
   return (
     <div className="App">
 
-      <Nav makeReq={getIDs} setCount={setLoadCount} />
+      <Nav
+        makeReq={getIDs}
+        setCount={setLoadCount}
+        setFont={setFont}
+        updateAgent={setAgent}
+        decFont={() => setFontSize(fontSize - 1)}
+        incFont={() => setFontSize(Number(fontSize) + 1)}
+      />
 
       <List
         loading={loading}
@@ -88,8 +105,8 @@ export default function App() {
         loadingMore={loadingMore}
       />
 
-      <Reader data={reading} />
+      <Reader data={reading} font={font} fontSize={fontSize} agent={agent} />
 
     </div>
   );
-}
+};

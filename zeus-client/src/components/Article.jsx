@@ -2,6 +2,16 @@ import React from 'react';
 const ReactMarkdown = require('react-markdown')
 
 
+const ErrorLink = (props) => {
+	return (
+		<div style={{textAlign: 'center'}}>
+			<p style={{fontSize: '18pt', fontWeight: 'bolder', color: '#aaa'}}>No Content Available</p>
+			<p><a href={props.url} target='_blank' rel='noopener noreferrer'>Go to linked website</a></p>
+		</div>
+	)
+}
+
+
 const DateDisplay = (props) => {
 	const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
 	return (
@@ -15,10 +25,11 @@ const DateDisplay = (props) => {
 	)
 }
 
-const Header = (props) => {
+
+const ArticleHeader = (props) => {
 	return (
 		<>
-			<header className='articleMeta'>
+			<header className='ArticleHeader'>
 
 				{props.date && <DateDisplay date={props.date} />}
 
@@ -33,31 +44,26 @@ const Header = (props) => {
 	)
 }
 
-const Section = (props) => {
+
+const ArticleBody = (props) => {
 	return (
 		<>
-			<section name='Article Content' className='articleContent'>
+			<section name='Article Content' className='ArticleBody' style={{fontFamily: props.font}}>
 
-				<h1 className='articleTitle'>{props.title}</h1>
+				<h1 className='articleTitle' style={{fontSize: `${props.fontSize * 1.85}pt`}}>{props.title}</h1>
 
-				{props.content
-					? <ReactMarkdown source={props.content} />
-					: props.excerpt
-						? props.excerpt
-						: <ErrorLink url={props.url} />
-				}
+				<div className='articleText' style={{fontSize: `${props.fontSize}pt`}}>
+					{props.content
+						? <ReactMarkdown source={props.content} />
+						: props.excerpt
+							? props.excerpt
+							: <ErrorLink url={props.url} />
+					}
+				</div>
+
 
 			</section>
 		</>
-	)
-}
-
-const ErrorLink = (props) => {
-	return (
-		<div style={{textAlign: 'center'}}>
-			<p style={{fontSize: '18pt', fontWeight: 'bolder', color: '#aaa'}}>No Content Available</p>
-			<p><a href={props.url} target='_blank' rel='noopener noreferrer'>Go to linked website</a></p>
-		</div>
 	)
 }
 
@@ -69,14 +75,16 @@ export default function Article(props) {
 
 			<article className='articleInner'>
 
-				<Header
+				<ArticleHeader
 					date={props.data.date_published}
 					author={props.data.author}
 					url={props.data.url}
 					domain={props.data.domain}
 				/>
 
-				<Section
+				<ArticleBody
+					font={props.font}
+					fontSize={props.fontSize}
 					title={props.data.title}
 					content={props.data.content}
 					excerpt={props.data.excerpt}
