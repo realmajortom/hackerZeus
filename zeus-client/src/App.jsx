@@ -32,7 +32,7 @@ export default function App() {
     let count = loadCount < data.length ? loadCount : data.length;
 
     for (let i = 0; i < count; i++) {
-      await API.get(`${reqs['item']}${data[i]}.json`).then(res => {
+      await API.get(`item/${data[i]}.json`).then(res => {
         if (res.data !== null) {
           itemsInRange.push(res.data);
         }
@@ -105,7 +105,12 @@ export default function App() {
         loadingMore={loadingMore}
       />
 
-      <Reader data={reading} font={font} fontSize={fontSize} agent={agent} />
+      <Reader
+        data={reading}
+        font={font}
+        fontSize={fontSize}
+        agent={agent}
+      />
 
     </div>
   );
