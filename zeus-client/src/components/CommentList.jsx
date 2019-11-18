@@ -4,16 +4,17 @@ import Comment from './Comment';
 
 
 export default function CommentList(props) {
+	const depth = props.depth + 1;
 	const ids = props.ids;
-	const [comments, setComments] = useState([]);
+	const [comms, setComms] = useState([]);
 
 	useEffect(() => {
-		setComments(getItems(ids));
+		setComms(getItems(ids));
 	}, [ids]);
 
 	return (
 		<div className='CommentList'>
-			{comments.map(c => <Comment key={c.id} data={c} />)}
+			{comms.map(c => <Comment key={c.id} data={c} depth={depth} />)}
 		</div>
 	);
 }

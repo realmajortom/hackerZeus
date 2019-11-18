@@ -22,6 +22,8 @@
   grid-area: reader;
   overflow: scroll;
   background-color: #efefef;
+  scroll-behavior: smooth;
+  position: relative;
 }
 
 
@@ -97,7 +99,7 @@
   left: 10px;
   background-color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   overflow: hidden;
   transition: opacity 200ms ease 0ms, box-shadow 200ms ease 0ms;
 }
@@ -245,18 +247,45 @@ option {
 .ListItem {
   position: relative;
   width: 90%;
-  margin: 14px auto;
+  margin: 0 auto;
   padding: 10px;
   height: 80px;
   background-color: white;
-  border-radius: 4px;
-  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20);
+  border-left: 1px solid rgba(0,0,0,0.08);
+  border-right: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  border-radius: 0;
   transition: all 200ms ease 0ms;
 }
 
-.ListItem:hover {
-  box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
+
+.ListItem:first-of-type {
+  margin-top: 10px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
 }
+.ListItem:last-of-type {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.ListItem:hover {
+  z-index: 2;
+  border-color: #efefef;
+  background-color: #efefef;
+}
+.ListItem:active {
+   background-color: rgba(0,170,255,0.15);
+}
+
+.ListItemReading {
+  background-color: rgba(0,170,255,0.15);
+}
+.ListItemReading:hover, .ListItemReading:active {
+  background-color: rgba(0,170,255,0.15);
+}
+
 
 .listBtn {
   background-color: transparent;
@@ -390,7 +419,7 @@ option {
   max-width: 1100px;
   min-height: 30%;
   border-radius: 6px;
-  margin: 15px auto;
+  margin: 14px auto;
   position: relative;
   box-shadow: 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.20);
 }
@@ -470,9 +499,83 @@ pre {
 
 
 /*** Comment Section ***/
-.CommentSection {
-  margin: 40px 5%;
+.commentJump {
+  margin: 10px 5%;
 }
+
+.jumpText, .jumpText:visited {
+  color: #6a6a6a;
+}
+
+.jumpText:hover {
+  color: #008af6;
+}
+
+.CommentSection {
+  padding-top: 10px;
+  margin: 40px 5%  0 calc(5% - 40px);
+  font-size: 10pt;
+}
+
 .CommentList {
-  padding-left: 30px;
+  margin-left: 40px;
+}
+
+.Comment {
+  margin: 20px 0;
+  padding-left: 12px;
+  border-left-style: solid;
+  border-left-width: 2px;
+}
+
+.commentText {
+  padding: 0;
+  margin: 5px 0 0 0;
+}
+
+.commentHeader {
+  color: #a0a0a0;
+}
+
+.childrenVisBtn {
+  color: #a0a0a0;
+  font-family: 'Roboto Mono', monospace;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+}
+
+.childrenVisBtn:hover {
+  color: #000;
+}
+
+.commentTime {
+  margin: 0 10px;
+}
+
+.commentDepth1, .commentDepth7 {
+  /* border-color: #DE4646; */
+  border-color: #565BAF;
+}
+.commentDepth2, .commentDepth8 {
+  /* border-color:  #FF5349; */
+   border-color: #52AFE6;
+}
+.commentDepth3, .commentDepth9 {
+  /* border-color:  #FEF65C; */
+   border-color: #A5CB43;
+}
+.commentDepth4, .commentDepth10 {
+  /* border-color: #FFD309; */
+  border-color:  #F4DC39;
+}
+.commentDepth5 {
+  /* border-color: #4F86F7; */
+   border-color:  #F0AD28;
+}
+.commentDepth6 {
+  /* border-color: #446CCF; */
+  border-color: #F65247;
 }
