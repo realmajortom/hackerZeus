@@ -39,6 +39,10 @@ export default function Reader(props) {
 
 			<div className='articleBack' style={darken ? {opacity: 0, zIndex: 10} : {opacity: 0, zIndex: -1}}></div>
 
+			<div style={loading || error ? {display: "none"} : {display: "block"}} className='commentJump'>
+				{(data !== null && data.kids) && <a href='#commentSection' className='jumpText' >Jump to comments</a>}
+			</div>
+
 			{loading === true
 				? <div className="loadRing"></div>
 				: error === true
