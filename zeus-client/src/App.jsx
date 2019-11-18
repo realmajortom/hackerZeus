@@ -85,13 +85,21 @@ export default function App() {
 
   useEffect(() => {
 
-    if (prevID !== null && prevID !== reading.id) {
-      document.getElementById(prevID).classList.remove('ListItemReading');
+    if (prevID && prevID !== reading.id) {
+      let prevItem = document.getElementById(prevID);
+      if (prevItem) { // Check that prevItem is still loaded in the DOM
+        prevItem.classList.remove('ListItemReading');
+      }
     }
+
     if (reading) {
-      document.getElementById(reading.id).classList.add('ListItemReading')
+      let newItem =  document.getElementById(reading.id);
+      if (newItem) {
+        newItem.classList.add('ListItemReading');
+      }
       setPrevID(reading.id);
     }
+
   }, [reading, prevID]);
 
 
