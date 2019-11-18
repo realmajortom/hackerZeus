@@ -1,6 +1,6 @@
 import React from 'react';
-import Gear from './Gear';
-import fontFams from '../api/fontFams';
+import Gear from '../icons/Gear';
+import fontFams from '../../dataHelpers/fontFams';
 
 export default function UIControls(props) {
 	return (

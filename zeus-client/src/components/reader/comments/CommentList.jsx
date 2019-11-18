@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import getItems from '../api/getItems';
+import getItems from '../../../dataHelpers/getItems';
 import Comment from './Comment';
 
 

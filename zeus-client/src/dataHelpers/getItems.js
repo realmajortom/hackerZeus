@@ -1,4 +1,4 @@
-import API from './API';
+import API from './hnAPI';
 
 export default function getItems(arr) {
 	let newComms = [];

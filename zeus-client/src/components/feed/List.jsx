@@ -1,5 +1,5 @@
 import React from 'react';
-import LoadRing from './LoadRing';
+import LoadRing from '../icons/LoadRing';
 import LoadedList from './LoadedList';
 
 

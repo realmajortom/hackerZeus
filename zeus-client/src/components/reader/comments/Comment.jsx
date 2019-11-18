@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import CommentList from './CommentList';
-import calcTime from '../api/calcTime';
+import calcTime from '../../../dataHelpers/calcTime';
 
 
 export default function Comment(props) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import ListItem from './ListItem';
-import LoadRingSm from './LoadRingSm';
-import LoadArrow from './LoadArrow';
+import LoadRingSm from '../icons/LoadRingSm';
+import LoadArrow from '../icons/LoadArrow';
 
 export default function LoadedList(props) {
 	return (

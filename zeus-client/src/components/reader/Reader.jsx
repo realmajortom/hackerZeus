@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import Article from './Article';
+import Article from './article/Article';
 import axios from 'axios';
-import CommentSection from './CommentSection';
+import CommentSection from './comments/CommentSection';
 
 
 export default function Reader(props) {

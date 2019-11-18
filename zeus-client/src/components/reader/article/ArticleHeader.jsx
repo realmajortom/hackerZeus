@@ -1,5 +1,5 @@
 import React from 'react';
-import DateDisplay from './DateDisplay';
+import DateDisplay from '../../icons/DateDisplay';
 
 export default function ArticleHeader(props) {
 	return (

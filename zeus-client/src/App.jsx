@@ -1,10 +1,10 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import './App.css';
-import Nav from './components/Nav';
-import Reader from './components/Reader';
-import List from './components/List';
-import API from './api/API';
-import reqs from './api/reqs'
+import Nav from './components/nav/Nav';
+import Reader from './components/reader/Reader';
+import List from './components/feed/List';
+import API from './dataHelpers/hnAPI';
+import reqs from './dataHelpers/hnReqs'
 
 
 const storedFontSize = localStorage.getItem('fontSize');
