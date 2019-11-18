@@ -1,24 +1,39 @@
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const express = require('express');
 const agent = require("user-agents");
 const bodyParser = require('body-parser');
 const rateLimit = require("express-rate-limit");
 const Mercury = require('@postlight/mercury-parser');
 
 
+const express = require('express');
+const path = require('path');
 const app = express();
 
-const API_PORT = 8080;
 
+// Set trust proxy since app sits on app engine server
 app.set('trust proxy', 1);
 
+app.use((req, res, next) => {
+	if (req.secure) {
+		next();
+	} else {
+		res.redirect('https://' + req.headers.host + req.url);
+	}
+});
+
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+
+// Gen security
 app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json());
 
 
+// Rate limiters
 const parseLimit = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
 	max: 100,
@@ -28,17 +43,16 @@ const parseLimit = rateLimit({
 
 const genLimit = rateLimit({
 	windowMs: 60 * 60 * 1000, // 1 hour
-	max: 10,
+	max: 100,
 	headers: false,
 	message: "Too. Many. Requests. Are you SPAMMING me??"
 });
 
 
-
 app.use('/parse', parseLimit);
 
-app.post('/parse', async (req, res) => {
-	const ua = await new agent({deviceCategory: req.body.agent}).data.userAgent;
+app.post('/parse', (req, res) => {
+	const ua = new agent({deviceCategory: req.body.agent}).data.userAgent;
 
 	Mercury
 		.parse(req.body.url, {
@@ -64,13 +78,9 @@ app.post('/parse', async (req, res) => {
 
 app.use('/*', genLimit);
 
-app.post('/*', (req, res) => {
-	res.json({message: 'Yowza! You hit an invalid endpoint.', success: false});
-});
-
 app.get('/*', (req, res) => {
-	res.json({message: 'Yowza! You hit an invalid endpoint.', success: false});
+	res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 
-app.listen(API_PORT, () => console.log(`Listening on port: ${API_PORT}`));
+app.listen(8080, () => console.log(`Listening on port: 8080`));
