@@ -1,6 +1,6 @@
 {
   "short_name": "Hacker Zeus",
-  "name": "Hacker Zues: HN Reader",
+  "name": "Hacker Zeus: HN Reader for the Gods",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "hz_icon_no-bolt@192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "hz_icon_no-bolt@512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
