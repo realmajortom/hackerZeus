@@ -23,6 +23,7 @@ export default function App() {
   const [loadingMore, setLoadingMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [reading, setReading] = useState(null);
+  const [prevID, setPrevID] = useState(null);
   const [itemIDs, setItemIDs] = useState([]);
   const [items, setItems] = useState([]);
 
@@ -80,6 +81,18 @@ export default function App() {
       localStorage.setItem('fontSize', fontSize);
     }
   }, [fontSize]);
+
+
+  useEffect(() => {
+
+    if (prevID !== null && prevID !== reading.id) {
+      document.getElementById(prevID).classList.remove('ListItemReading');
+    }
+    if (reading) {
+      document.getElementById(reading.id).classList.add('ListItemReading')
+      setPrevID(reading.id);
+    }
+  }, [reading, prevID]);
 
 
   useMount(() => getIDs('top'));
