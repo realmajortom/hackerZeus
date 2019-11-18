@@ -3,3 +3,9 @@ node_modules
 .DS_Store
 .env
 app.yaml
+.idea/.gitignore
+.idea/codeStyles/
+.idea/hackerZeus.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
