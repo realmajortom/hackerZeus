@@ -1,21 +1,13 @@
 import React from 'react';
 import * as ParseUrl from 'url-parse';
-
+import calcTime from '../api/calcTime';
 
 export default function ListItem(props) {
 	const data = props.data;
 
 	const host = new ParseUrl(data.url, {}).host;
 
-	const date = new Date(data.time * 1000);
-
-	const time = {
-		month: date.getMonth() + 1,
-		date: date.getDate(),
-		hour: (date.getHours() > 12 ? (date.getHours() - 12) : date.getHours()),
-		min: (date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()),
-		ampm: date.getHours() < 12 ? 'am' : 'pm'
-	}
+	const timeAgo = calcTime(data.time);
 
 
 	return (
@@ -33,8 +25,7 @@ export default function ListItem(props) {
 							<a href={data.url} target='_blank' rel='noopener noreferrer' className='listHost'>{host}</a>
 
 							<div className='infoLeftBottom'>
-								<span className='infoDate'>{`${time.month}.${time.date}`}</span>
-								<span className='infoTime'>{`${time.hour}:${time.min} ${time.ampm}`}</span>
+								<span className='infoDate'>{timeAgo}</span>
 								<span className='infoDivider'>|</span>
 								<span>{data.by}</span>
 							</div>
