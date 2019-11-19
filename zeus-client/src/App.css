@@ -13,7 +13,7 @@
   justify-content: space-between;
   align-items: center;
 }
-.List {
+.Feed {
   grid-area: list;
   overflow: scroll;
   border-top: 1px solid #eee;
@@ -57,7 +57,6 @@
   border-color: #008af6;
 }
 
-
 .navRight {
   width: 100%;
   height: 100%;
@@ -75,23 +74,24 @@
   margin-right: 15px;
 }
 
-.uiControls {
+/*** UI Controls Menu ***/
+.uiControlsMenu {
   display: flex;
   align-items: center;
   position: relative;
 }
 
-.uiMenuBack {
+.uiMenuDarkBkg {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,0.075);
-  transition: opacity 200ms ease 0ms, z-index 200ms ease 0ms;
+  background-color: rgba(0,0,0,0.15);
+  transition: opacity 250ms ease 0ms, z-index 250ms ease 0ms;
 }
 
-.uiMenu {
+.uiControlsPopup {
   z-index: 20;
   position: absolute;
   display: block;
@@ -101,11 +101,11 @@
   border: none;
   border-radius: 6px;
   overflow: hidden;
-  transition: opacity 200ms ease 0ms, box-shadow 200ms ease 0ms;
+  transition: opacity 250ms ease 0ms, box-shadow 250ms ease 0ms;
 }
 
-.uiMenuInner {
-  margin: 10px 20px;
+.uiControlsPopup_inner {
+  margin: 0 20px;
 }
 
 .uiOptionWrapper {
@@ -114,20 +114,17 @@
   border-bottom: 1px solid #efefef;
 }
 
-.uiOptionWrapper:first-of-type {
-  margin: 0 0 25px 0;
-}
 
 .uiOptionWrapper:last-of-type {
   border-bottom: none;
 }
 
-.uiMenu label {
+.uiOptionWrapper label {
   font-family: 'Open Sans', sans-serif;
   color: rgba(0,0,0,0.6);
 }
 
-.uiBtn {
+.uiFontBtn {
   cursor: pointer;
   font-family: 'Roboto Mono', monospace;
   font-size: 20pt;
@@ -144,15 +141,15 @@
   transition: background-color 200ms ease 0ms;
 }
 
-.uiBtn:hover {
+.uiFontBtn:hover {
   background-color: rgba(0,0,0,0.08);
 }
 
-.uiBtn:active {
+.uiFontBtn:active {
   background-color: rgba(0,0,0,0.12);
 }
 
-select {
+.uiOptionWrapper select {
   margin-top: 6px;
   width: 150px;
   height: 30px;
@@ -163,11 +160,11 @@ select {
   cursor: pointer;
 }
 
-option {
+.uiOptionWrapper option {
   font-family: 'Open Sans', sans-serif;
 }
 
-.uiMenuBtn {
+.uiControlsOpenBtn {
   padding: 4px;
   margin: 0 15px;
   background-color: transparent;
@@ -181,13 +178,13 @@ option {
   transition: fill 200ms ease 0ms;
 }
 
-.uiMenuBtn:hover .gearIcn, .uiMenuBtn:active .gearIcn {
+.uiControlsOpenBtn:hover .gearIcn, .uiControlsOpenBtn:active .gearIcn {
   fill: #000;
 }
 
 
 
-/*********** List ***********/
+/*********** Feed ***********/
 /*** Loading Animation ***/
 .Loading {
   display: flex;
@@ -236,15 +233,15 @@ option {
   }
 }
 
-/*** List Item ***/
+/*** Feed Item ***/
 .articleList {
   list-style: none;
-  margin: 0;
+  margin: 0 0 0 0;
   padding: 0;
   user-select: none;
 }
 
-.ListItem {
+.FeedItem {
   position: relative;
   width: 90%;
   margin: 0 auto;
@@ -259,35 +256,35 @@ option {
 }
 
 
-.ListItem:first-of-type {
+.FeedItem:first-of-type {
   margin-top: 10px;
   border-top: 1px solid rgba(0,0,0,0.08);
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
-.ListItem:last-of-type {
+.FeedItem:last-of-type {
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
 }
 
-.ListItem:hover {
+.FeedItem:hover {
   z-index: 2;
   border-color: #efefef;
   background-color: #efefef;
 }
-.ListItem:active {
+.FeedItem:active {
    background-color: rgba(0,170,255,0.15);
 }
 
-.ListItemReading {
+.feedItemOpen {
   background-color: rgba(0,170,255,0.15);
 }
-.ListItemReading:hover, .ListItemReading:active {
+.feedItemOpen:hover, .ListItemReading:active {
   background-color: rgba(0,170,255,0.15);
 }
 
 
-.listBtn {
+.feedBtn {
   background-color: transparent;
   border: none;
   margin: 0;
@@ -297,11 +294,11 @@ option {
   text-align: left;
   outline: none;
 }
-.listBtn:hover, .listBtn:active {
+.feedBtn:hover, .feedBtn:active {
   cursor: pointer;
 }
 
-.listItemTitle {
+.feedItemTitle {
   font-weight: 500;
   font-size: 13pt;
   position: absolute;
@@ -310,7 +307,7 @@ option {
   margin: 0 10px 0 0;
 }
 
-.listInfo {
+.feedItemInfo {
   width: calc(100% - 20px);
   margin: 0 auto;
   display: flex;
@@ -323,18 +320,18 @@ option {
   bottom: 5px;
 }
 
-.listHost {
+.feedItemHost {
   font-size: 9pt;
   color: #a1a1a1;
   text-decoration: none;
 }
 
-.listHost:hover, .listHost:active {
+.feedItemHost:hover, .feedItemHost:active {
   color: #008af6;
   text-decoration: underline;
 }
 
-.listHost:visited {
+.feedItemHost:visited {
   color: #a568e5;
   text-decoration: underline;
 }
@@ -360,7 +357,7 @@ option {
   margin: 0 12px;
 }
 
-.ptsSpan {
+.ptSpan {
   width: 60px;
   text-align: end;
 }
@@ -399,16 +396,7 @@ option {
 .noLoadMsg {
   font-size: 16pt;
   color: #ababab;
-}
-
-.articleBack {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0,0,0,0.2);
-  transition: opacity 300ms ease 0ms, z-index 300ms ease 0ms;
+  text-align: center;
 }
 
 .Article {
@@ -445,12 +433,6 @@ option {
   color: #666;
   padding: 0;
   text-decoration: none;
-}
-
-.ArticleHeader a:hover, .ArticleHeader a:active,
-.ArticleBody a:hover, .ArticleBody a:active {
-  color: #008af6;
-  text-decoration: underline;
 }
 
 .ArticleHeader a:visited {
@@ -513,8 +495,13 @@ pre {
 
 .CommentSection {
   padding-top: 10px;
-  margin: 40px 5%  0 calc(5% - 40px);
+  margin: 40px 5% 0 calc(5% - 40px);
   font-size: 10pt;
+}
+
+.CommentSection h3 {
+  margin: 0 38px;
+  padding: 20px 0 0 0;
 }
 
 .CommentList {
@@ -555,6 +542,10 @@ pre {
   margin: 0 10px;
 }
 
+.commentChildrenCount {
+  margin-right: 12px;
+}
+
 .commentDepth1, .commentDepth7 {
   /* border-color: #DE4646; */
   border-color: #565BAF;
@@ -578,4 +569,138 @@ pre {
 .commentDepth6 {
   /* border-color: #446CCF; */
   border-color: #F65247;
+}
+
+
+.AppDark {
+  color: #ddd;
+}
+
+.genDark {
+  background-color: #121212;
+}
+
+.genDarkElev {
+  background-color: #222222;
+}
+
+.genDarkElev .uiOptionWrapper {
+  border-color: #383838;
+}
+.genDarkElev label {
+  color: #fff;
+}
+.genDarkElev .uiSelect {
+  color: #fff;
+  background-color: #222222;
+  border-color: #383838;
+}
+.genDarkElev .uiFontBtn {
+  background-color: #bbbbbb;
+  border: none;
+}
+.genDarkElev .uiFontBtn:hover, .genDarkElev .uiFontBtn:active {
+  background-color: #ffffff;
+}
+.gearDark .gearIcn {
+  fill: #bbbbbb;
+}
+.gearDark:hover .gearIcn, .gearDark:active .gearIcn {
+  fill: #ffffff;
+}
+
+.AppDark .Feed {
+  background-color: #121212;
+  border-color: #bbbbbb;
+}
+
+.darkFeedItem {
+  background-color: #222222;
+  border-color: #383838;
+}
+.darkFeedItem:first-of-type {
+  border-top-color: #383838;
+}
+.darkFeedItem .feedItemTitle {
+  color: #ddd;
+}
+
+.darkFeedItem:hover, .darkFeedItem:active {
+  background-color: #383838;
+  border-color: #383838;
+}
+
+.AppDark .feedItemOpen {
+  background-color: rgba(26, 26, 34, 1.0);
+  border-color: #383838;
+}
+.AppDark .feedItemOpen:hover, .AppDark .feedItemOpen:active {
+  background-color: rgba(26, 26, 34, 1.0);
+  border-color: #383838;
+}
+
+.AppDark .loadArrow:hover, .AppDark .loadArrow:active {
+  fill: #ffffff;
+}
+
+.AppDark .Reader {
+  background-color: #010101;
+}
+
+.AppDark .Article {
+  background-color: #222222;
+}
+
+.AppDark .ArticleBody {
+  color: #ddd;
+}
+
+.AppDark .ArticleBody a {
+  color: #bbb;
+}
+
+.AppDark .ArticleHeader p {
+  color: #bbb;
+  padding: 0;
+  margin: 0 30px 0 0;
+}
+
+.AppDark .ArticleHeader a {
+  color: #bbb;
+  padding: 0;
+  text-decoration: none;
+}
+
+.ArticleHeader a:hover, .ArticleHeader a:active,
+.ArticleBody a:hover, .ArticleBody a:active {
+  color: #008af6;
+  text-decoration: underline;
+}
+
+.AppDark .commentText {
+  color: #ddd;
+}
+
+.AppDark .NavBtn {
+  color: #ddd;
+  border-color: #383838;
+  background-color: #121212;
+}
+
+.AppDark .NavBtn:hover, .AppDark .NavBtn:active, .AppDark .NavCurrent {
+  background-color: #008af6;
+  color: #fff;
+  border-color: #008af6;
+}
+
+.AppDark .Feed {
+  border-top-color: transparent;
+}
+
+.darkToggle.react-toggle--checked .react-toggle-track {
+  background-color: #d9f0ff;
+}
+
+.darkToggle.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background-color: #68c3ff;
 }

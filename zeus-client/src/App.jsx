@@ -2,11 +2,12 @@ import React, {useState, useEffect, useCallback} from 'react';
 import './App.css';
 import Nav from './components/nav/Nav';
 import Reader from './components/reader/Reader';
-import List from './components/feed/List';
+import Feed from './components/feed/Feed';
 import API from './dataHelpers/hnAPI';
 import reqs from './dataHelpers/hnReqs'
 
 
+const storedDark = localStorage.getItem('dark');
 const storedFontSize = localStorage.getItem('fontSize');
 const storedCount = localStorage.getItem('count');
 const storedFont = localStorage.getItem('font');
@@ -18,6 +19,8 @@ export default function App() {
   const [font, setFont] = useState(storedFont ? storedFont : "'Open Sans', sans-serif");
   const [fontSize, setFontSize] = useState(storedFontSize ? storedFontSize : '12');
   const [loadCount, setLoadCount] = useState(storedCount ? storedCount : '30');
+  const [darkMode, setDarkMode] = useState(JSON.parse(storedDark));
+
   const [agent, setAgent] = useState('desktop');
 
   const [loadingMore, setLoadingMore] = useState(false);
@@ -73,6 +76,13 @@ export default function App() {
 
 
   useEffect(() => {
+    localStorage.setItem('dark', darkMode);
+    let theme = document.querySelector("meta[name=theme-color]");
+    darkMode ? theme.setAttribute('content', '#121212') : theme.setAttribute('content', '#ffffff');
+  }, [darkMode]);
+
+
+  useEffect(() => {
     if (fontSize < 1 || fontSize > 100) {
       alert('What on earth...');
       localStorage.setItem('fontSize', 12);
@@ -88,14 +98,14 @@ export default function App() {
     if (prevID && prevID !== reading.id) {
       let prevItem = document.getElementById(prevID);
       if (prevItem) { // Check that prevItem is still loaded in the DOM
-        prevItem.classList.remove('ListItemReading');
+        prevItem.classList.remove('feedItemOpen');
       }
     }
 
     if (reading) {
       let newItem =  document.getElementById(reading.id);
       if (newItem) {
-        newItem.classList.add('ListItemReading');
+        newItem.classList.add('feedItemOpen');
       }
       setPrevID(reading.id);
     }
@@ -107,32 +117,36 @@ export default function App() {
 
 
   return (
-    <div className="App">
+        <div className={"App " + (darkMode && ('AppDark'))}>
 
-      <Nav
-        makeReq={getIDs}
-        setCount={setLoadCount}
-        setFont={setFont}
-        updateAgent={setAgent}
-        decFont={() => setFontSize(fontSize - 1)}
-        incFont={() => setFontSize(Number(fontSize) + 1)}
-      />
+          <Nav
+            makeReq={getIDs}
+            setCount={setLoadCount}
+            setFont={setFont}
+            updateAgent={setAgent}
+            decFont={() => setFontSize(fontSize - 1)}
+            incFont={() => setFontSize(Number(fontSize) + 1)}
+            dark={darkMode}
+            toggleDark={() => setDarkMode(!darkMode)}
+          />
 
-      <List
-        loading={loading}
-        items={items}
-        setReader={setReading}
-        load={loadMore}
-        loadingMore={loadingMore}
-      />
+          <Feed
+            loading={loading}
+            items={items}
+            setReader={setReading}
+            load={loadMore}
+            loadingMore={loadingMore}
+            dark={darkMode}
+          />
 
-      <Reader
-        data={reading}
-        font={font}
-        fontSize={fontSize}
-        agent={agent}
-      />
+          <Reader
+            data={reading}
+            font={font}
+            fontSize={fontSize}
+            agent={agent}
+            dark={darkMode}
+          />
 
-    </div>
+        </div>
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import * as ParseUrl from 'url-parse';
 import calcTime from '../../dataHelpers/calcTime';
 
-export default function ListItem(props) {
+export default function FeedItem(props) {
 	const data = props.data;
 
 	const host = new ParseUrl(data.url, {}).host;
@@ -12,17 +12,17 @@ export default function ListItem(props) {
 
 	return (
 		<>
-			<li className='ListItem' id={props.data.id}>
+			<li className={'FeedItem ' + (props.dark && 'darkFeedItem')} id={props.data.id}>
 
-				<button onClick={() => props.setReader(data)} className='listBtn'>
+				<button onClick={() => props.setReader(data)} className='feedBtn'>
 
-					<p className='listItemTitle' style={data.title.length >= 72 ? {fontSize: '11pt'} : {}}>{data.title}</p>
+					<p className='feedItemTitle' style={data.title.length >= 72 ? {fontSize: '11pt'} : {}}>{data.title}</p>
 
-					<div className='listInfo'>
+					<div className='feedItemInfo'>
 
 						<div className='infoLeft'>
 
-							<a href={data.url} target='_blank' rel='noopener noreferrer' className='listHost'>{host}</a>
+							<a href={data.url} target='_blank' rel='noopener noreferrer' className='feedItemHost'>{host}</a>
 
 							<div className='infoLeftBottom'>
 								<span className='infoDate'>{timeAgo}</span>
@@ -33,7 +33,7 @@ export default function ListItem(props) {
 
 						<div className='infoRight'>
 							{data.descendants > 0 && <span>Cmt: {data.descendants}</span>}
-							<div className='ptsSpan'><span>Pt: {data.score}</span></div>
+							<div className='ptSpan'><span>Pt: {data.score}</span></div>
 						</div>
 
 					</div>

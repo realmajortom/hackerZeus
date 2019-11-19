@@ -35,9 +35,9 @@ export default function Nav(props) {
 
 
 	return (
-		<div className='Nav'>
+		<div className={'Nav ' + (props.dark && 'genDark') }>
 
-			<div className='uiMenuBack'
+			<div className='uiMenuDarkBkg'
 				onClick={() => setMenuVis(false)}
 				style={menuVis ? {opacity: 1, zIndex: 19} : {opacity: 0, zIndex: -1}} >
 			</div>
@@ -53,7 +53,7 @@ export default function Nav(props) {
 			</div>
 
 
-			<div className='navRight'>
+			<div className={'navRight ' + (props.dark && 'genDark')}>
 
 				<UIControls
 					menuVis={menuVis}
@@ -63,6 +63,8 @@ export default function Nav(props) {
 					updateFont={updateFont}
 					decFont={props.decFont}
 					incFont={props.incFont}
+					dark={props.dark}
+					toggleDark={props.toggleDark}
 				/>
 
 				<span className='siteTitle'>Hacker Zeus</span>

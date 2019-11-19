@@ -1,14 +1,14 @@
 import React from 'react';
-import ListItem from './ListItem';
+import FeedItem from './FeedItem';
 import LoadRingSm from '../icons/LoadRingSm';
 import LoadArrow from '../icons/LoadArrow';
 
 export default function LoadedList(props) {
 	return (
-		<div className='List'>
+		<div>
 
 			<ul className='articleList'>
-				{props.items.map(i => <ListItem key={i.id} data={i} setReader={props.setReader} />)}
+				{props.items.map(i => <FeedItem key={i.id} data={i} setReader={props.setReader} dark={props.dark}/>)}
 			</ul>
 
 			<div className='loadMoreCont'>

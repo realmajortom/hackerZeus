@@ -1,16 +1,35 @@
 import React from 'react';
 import Gear from '../icons/Gear';
 import fontFams from '../../dataHelpers/fontFams';
+import Toggle from 'react-toggle';
+import "react-toggle/style.css";
+import Sun from '../icons/Sun';
+import Moon from '../icons/Moon';
 
 export default function UIControls(props) {
 	return (
-		<div className='uiControls'>
+		<div className='uiControlsMenu'>
 
-			<button className='uiMenuBtn' onClick={() => props.setMenuVis(!props.menuVis)} ><Gear /></button>
+			<button className={'uiControlsOpenBtn ' + (props.dark && 'gearDark')} onClick={() => props.setMenuVis(!props.menuVis)} ><Gear /></button>
 
-			<div className='uiMenu' style={props.menuVis ? {opacity: 1, height: '419px', boxShadow: '0 14px 20px 0 rgba(0,0,0,.11)'} : {opacity: 0, height: '0', boxShadow: 'none'}}>
 
-				<div className='uiMenuInner'>
+			<div className={'uiControlsPopup ' + (props.dark && 'genDarkElev')} style={props.menuVis ? {opacity: 1, height: '524px', boxShadow: '0 14px' +
+					' 20px 0' +
+					' rgba(0,0,0,.11)'} : {opacity: 0, height: '0', boxShadow: 'none'}}>
+
+				<div className='uiControlsPopup_inner'>
+
+					<div className='uiOptionWrapper'>
+						<Toggle
+							className='darkToggle'
+							icons={{
+								checked: <Sun />,
+								unchecked: <Moon />
+							}}
+							defaultChecked={props.dark}
+							onChange={() => props.toggleDark()}
+						/>
+					</div>
 
 					<div className='uiOptionWrapper'>
 						<label htmlFor='loadSelector'>Feed Count</label>
@@ -73,12 +92,13 @@ export default function UIControls(props) {
 					<div className='uiOptionWrapper'>
 						<label>Font Size</label>
 						<div className='fontSizeCont'>
-							<button className='uiBtn' onClick={() => props.decFont()}>a</button>
-							<button className='uiBtn' onClick={() => props.incFont()}>A</button>
+							<button className='uiFontBtn' onClick={() => props.decFont()}>a</button>
+							<button className='uiFontBtn' onClick={() => props.incFont()}>A</button>
 						</div>
 					</div>
 
 				</div>
+
 			</div>
 
 		</div>

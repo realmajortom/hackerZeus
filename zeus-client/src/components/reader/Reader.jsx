@@ -9,7 +9,6 @@ export default function Reader(props) {
 	const [article, setArticle] = useState(null);
 	const [loading, setLoading] = useState(null);
 	const [error, setError] = useState(false);
-	const [darken, setDarken] = useState(false);
 
 
 	useEffect(() => {
@@ -35,11 +34,9 @@ export default function Reader(props) {
 
 
 	return (
-		<div className={'Reader ' + (loading !== false || error === true ? 'Loading' : '')}>
+		<div className={'Reader ' + (loading !== false ? 'Loading' : '')}>
 
-			<div className='articleBack' style={darken ? {opacity: 0, zIndex: 10} : {opacity: 0, zIndex: -1}}></div>
-
-			<div style={loading || error ? {display: "none"} : {display: "block"}} className='commentJump'>
+			<div style={loading ? {display: "none"} : {display: "block"}} className='commentJump'>
 				{(data !== null && data.kids) && <a href='#commentSection' className='jumpText' >Jump to comments</a>}
 			</div>
 
@@ -48,11 +45,11 @@ export default function Reader(props) {
 				: error === true
 					? <p className='noLoadMsg'>Server could not parse requested data</p>
 					: article
-						? <Article data={article} font={props.font} fontSize={props.fontSize} toggleDarken={setDarken} />
+						? <Article data={article} font={props.font} fontSize={props.fontSize} />
 						: <p className='noLoadMsg'>Select an item from the left to load content</p>
 			}
 
-			<div style={loading ? {visibility: "hidden"} : {visibility: "visible"}}>
+			<div style={loading !== false ? {display: "none"} : {display: "block"}}>
 				{(data !== null && data.kids) && <CommentSection ids={data.kids} />}
 			</div>
 

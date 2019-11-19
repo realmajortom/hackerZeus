@@ -6,6 +6,7 @@ import calcTime from '../../../dataHelpers/calcTime';
 export default function Comment(props) {
 	const [childrenVis, setChildrenVis] = useState(true);
 
+
 	const timeStr = calcTime(props.data.time);
 
 	return (
@@ -17,6 +18,8 @@ export default function Comment(props) {
 					<span className='commentBy'>{props.data.by}</span>
 
 					<span className='commentTime'>{timeStr}</span>
+
+					<span className='commentChildrenCount'>{`Children: ${props.data.kids ? props.data.kids.length : 0}`}</span>
 
 					<button className='childrenVisBtn' onClick={() => setChildrenVis(!childrenVis)}>
 						{childrenVis ? "[-]" : "[+]"}

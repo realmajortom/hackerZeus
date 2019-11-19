@@ -6,9 +6,7 @@ import ArticleBody from './ArticleBody';
 export default function Article(props) {
 
 	return (
-		<div className='Article'
-			onMouseEnter={() => props.toggleDarken(true)}
-			onMouseLeave={() => props.toggleDarken(false)}>
+		<div className='Article'>
 
 			<article className='articleInner'>
 
