@@ -4,6 +4,8 @@ import calcTime from '../../../dataHelpers/calcTime';
 
 
 export default function Comment(props) {
+	const kids = props.data.kids ? props.data.kids : null;
+
 	const [childrenVis, setChildrenVis] = useState(true);
 
 
@@ -34,9 +36,9 @@ export default function Comment(props) {
 			</div>
 
 
-			{props.data.hasOwnProperty('kids') &&
+			{kids &&
 				<div style={childrenVis ? {display: 'block'} : {display: 'none'}} >
-					<CommentList ids={props.data.kids} depth={props.depth} />
+					<CommentList ids={kids} depth={props.depth} />
 				</div>
 			}
 

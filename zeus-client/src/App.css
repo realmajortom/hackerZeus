@@ -495,6 +495,7 @@ pre {
 
 .CommentSection {
   padding-top: 10px;
+  padding-bottom: 60px;
   margin: 40px 5% 0 calc(5% - 40px);
   font-size: 10pt;
 }
@@ -703,4 +704,12 @@ pre {
 
 .darkToggle.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
   background-color: #68c3ff;
+}
+
+.AppDark .childrenVisBtn:hover {
+  color: #ffffff;
+}
+
+span {
+  white-space: pre;
 }
