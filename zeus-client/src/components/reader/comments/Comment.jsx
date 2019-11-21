@@ -1,46 +1,39 @@
 import React, {useState} from 'react';
+import CommentHeader from './CommentHeader';
+import CommentBody from './CommentBody';
 import CommentList from './CommentList';
-import calcTime from '../../../dataHelpers/calcTime';
 
 
 export default function Comment(props) {
-	const kids = props.data.kids ? props.data.kids : null;
-
-	const [childrenVis, setChildrenVis] = useState(true);
-
-
-	const timeStr = calcTime(props.data.time);
+	const [vis, setVis] = useState(false);
 
 	return (
-		<div>
+		<div className='commentContainer'>
 
 			<div className={`Comment commentDepth${props.depth}`}>
 
-				<div className='commentHeader'>
-					<span className='commentBy'>{props.data.by}</span>
+				<CommentHeader
+					vis={vis}
+					toggleVis={setVis}
+					by={props.data.by}
+					time={props.data.time}
+					count={props.data.kids ? props.data.kids.length : 0} />
 
-					<span className='commentTime'>{timeStr}</span>
+				<CommentBody
+					text={props.data.text}
+					fontSize={props.fontSize} />
 
-					<span className='commentChildrenCount'>{`Children: ${props.data.kids ? props.data.kids.length : 0}`}</span>
-
-					<button className='childrenVisBtn' onClick={() => setChildrenVis(!childrenVis)}>
-						{childrenVis ? "[-]" : "[+]"}
-					</button>
-				</div>
-
-				<div
-					className='commentText'
-					style={childrenVis ? {display: 'block'} : {display: 'none'}}
-					dangerouslySetInnerHTML={{__html: props.data.text}}
-				/>
 			</div>
 
-
-			{kids &&
-				<div style={childrenVis ? {display: 'block'} : {display: 'none'}} >
-					<CommentList ids={kids} depth={props.depth} />
-				</div>
+			{props.data.kids &&
+				<CommentList
+					vis={vis}
+					depth={props.depth}
+					ids={props.data.kids}
+					key={`${props.data.id}-coli`}
+				/>
 			}
+
 
 		</div>
 	);

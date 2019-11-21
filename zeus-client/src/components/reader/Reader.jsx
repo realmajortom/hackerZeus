@@ -50,7 +50,7 @@ export default function Reader(props) {
 			}
 
 			<div style={loading !== false ? {display: "none"} : {display: "block"}}>
-				{(data !== null && data.kids) && <CommentSection ids={data.kids} />}
+				{(data !== null && data.kids) && <CommentSection ids={data.kids} fontSize={props.fontSize} />}
 			</div>
 
 		</div>
