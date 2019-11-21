@@ -16,7 +16,7 @@ export default function Reader(props) {
 			setLoading(true);
 
 			axios
-				.post(`https://hackerzeus.appspot.com/parse`,
+				.post(`https://hackerzeus.appspot.com/parse`, // http://127.0.0.1:8080/parse
 					{url: data.url, type: 'markdown', agent: props.agent})
 				.then(res => {
 					if (res.data.article) {
