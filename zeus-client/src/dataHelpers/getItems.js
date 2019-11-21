@@ -1,15 +1,34 @@
 import API from './hnAPI';
 
-export default function getItems(arr) {
-	let newComms = [];
+const getHNObj = async (id) => {
+	let result;
 
-	for (let i = 0; i < arr.length; i++) {
-		API.get(`item/${arr[i]}.json`).then(res => {
-			if (res.data !== null && res.data.deleted !== true) {
-				newComms.push(res.data);
+	await API.get(`item/${id}.json`)
+		.then(res => {
+			if (res.data.deleted) {
+				result = {id: id, error: true, deleted: true}
+			} else {
+				result = res.data;
 			}
-		});
-	}
+		})
+		.catch(() => result = {id: id, error: true, deleted: false})
 
-	return newComms;
-}
+	return result;
+};
+
+
+
+const getItems = async (itemsToGet) => {
+
+	const promises = itemsToGet.map(async item => {
+		const comment = await getHNObj(item);
+		return comment;
+	})
+
+	const comments = await Promise.all(promises);
+
+	return comments;
+
+};
+
+export default getItems;

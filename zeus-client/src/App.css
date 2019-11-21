@@ -40,6 +40,7 @@
 .NavBtn {
   padding: 4px 10px;
   color: #000;
+  background-color: #ffffff;
   border-width: 1px;
   border-style: solid;
   border-color: #aaa;
@@ -547,6 +548,27 @@ pre {
   margin-right: 12px;
 }
 
+.commentLoadBtn {
+  cursor: pointer;
+  padding: 4px 10px;
+  color: #000;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(216, 216, 216);
+  border-radius: 4px;
+  outline: none;
+  background-color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  transition: all 200ms ease 0ms;
+}
+
+.commentLoadBtn:hover {
+  background-color: rgba(0,0,0,0.08);
+}
+.commentLoadBtn:active {
+  background-color: rgba(0,0,0,0.12);
+}
+
 .commentDepth1, .commentDepth7 {
   /* border-color: #DE4646; */
   border-color: #565BAF;
@@ -632,11 +654,11 @@ pre {
 }
 
 .AppDark .feedItemOpen {
-  background-color: rgba(26, 26, 34, 1.0);
+  background-color: rgba(40, 40, 60, 1.0);
   border-color: #383838;
 }
 .AppDark .feedItemOpen:hover, .AppDark .feedItemOpen:active {
-  background-color: rgba(26, 26, 34, 1.0);
+  background-color: rgba(40, 40, 60, 1.0);
   border-color: #383838;
 }
 
@@ -682,6 +704,8 @@ pre {
   color: #ddd;
 }
 
+
+
 .AppDark .NavBtn {
   color: #ddd;
   border-color: #383838;
@@ -712,4 +736,11 @@ pre {
 
 span {
   white-space: pre;
+}
+
+.AppDark .commentText a {
+  color: #008af6;
+}
+.AppDark .commentText a:visited {
+  color: #a568e5;
 }
