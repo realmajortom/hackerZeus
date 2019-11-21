@@ -1,20 +1,19 @@
 const cors = require('cors');
 const helmet = require('helmet');
-const morgan = require('morgan');
 const agent = require("user-agents");
 const bodyParser = require('body-parser');
 const rateLimit = require("express-rate-limit");
 const Mercury = require('@postlight/mercury-parser');
-
 
 const express = require('express');
 const path = require('path');
 const app = express();
 
 
-// Set trust proxy since app sits on app engine server
+// Trust proxy when running on GCP (necessary for request upgrades)
 app.set('trust proxy', 1);
 
+// Upgrade all insecure requests
 app.use((req, res, next) => {
 	if (req.secure) {
 		next();
@@ -27,20 +26,22 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, 'build')));
 
 
-// Gen security
+// Misc middleware
 app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json());
 
 
-// Rate limiters
+// Rate limiter for all parsing requests
 const parseLimit = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
 	max: 100,
 	headers: false,
-	message: "Wow, you're doing a lot of reading! To keep the app running smoothly, please hold off for 15 minutes then try again. Thanks!"
+	message: "Wow, you're doing a lot of reading! To keep the app running smoothly, please hold off for 15 minutes then try again."
 });
 
+
+// Rate limiter for all other requests
 const genLimit = rateLimit({
 	windowMs: 60 * 60 * 1000, // 1 hour
 	max: 100,
