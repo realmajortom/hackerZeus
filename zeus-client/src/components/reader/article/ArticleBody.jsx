@@ -12,7 +12,7 @@ export default function ArticleBody(props) {
 
 				<div className='articleText' style={{fontSize: `${props.fontSize}pt`}}>
 					{props.content
-						? <ReactMarkdown source={props.content} linkTarget='_blank' renderers={{html: true}} />
+						? <ReactMarkdown source={props.content} linkTarget='_blank' />
 						: props.excerpt
 							? props.excerpt
 							: <ErrorLink url={props.url} />
