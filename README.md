@@ -11,7 +11,7 @@ In addition to loading articles in-app, Hacker Zeus also displays the comments p
 ## Tools & Technologies
 - React
 - Node.js + Express
-- Google Cloud Platform
+- Google Cloud App Engine
 - Mercury Parser by Postlight
 - PWA
 
