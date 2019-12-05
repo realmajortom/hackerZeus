@@ -8,29 +8,35 @@ export default function Reader(props) {
 	const data = props.data;
 	const [article, setArticle] = useState(null);
 	const [loading, setLoading] = useState(null);
-	const [error, setError] = useState(false);
+	const [message, setMessage] = useState('Select an item from the left to load content');
 
 
 	useEffect(() => {
 		if (data !== null) {
 			setLoading(true);
 
-			axios
-				.post(`https://hackerzeus.appspot.com/parse`, // http://127.0.0.1:8080/parse
-					{url: data.url, type: 'markdown', agent: props.agent})
-				.then(res => {
-					if (res.data.article) {
-						setArticle(res.data.article);
-						setError(false);
+			const askHN = /Ask HN/gi.test(data.title);
+
+			if (askHN) {
+				setArticle(null);
+				setMessage(data.title);
+				setLoading(false);
+			} else {
+				axios
+					.post(`https://hackerzeus.appspot.com/parse`, { url: data.url, type: 'markdown', agent: props.agent })
+					.then(res => {
+						if (res.data.article) {
+							setArticle(res.data.article);
+						} else {
+							setMessage('Server could not parse requested data');
+							setArticle(null);
+						}
 						setLoading(false);
-					} else {
-						setError(true);
-						setLoading(false);
-					}
-				});
+					});
+			}
 		};
 
-	}, [data, props.agent, setArticle, setLoading, setError]);
+	}, [data, props.agent, setArticle, setLoading]);
 
 
 	return (
@@ -42,11 +48,9 @@ export default function Reader(props) {
 
 			{loading === true
 				? <div className="loadRing"></div>
-				: error === true
-					? <p className='noLoadMsg'>Server could not parse requested data</p>
-					: article
-						? <Article data={article} font={props.font} fontSize={props.fontSize} />
-						: <p className='noLoadMsg'>Select an item from the left to load content</p>
+				: article
+					? <Article data={article} font={props.font} fontSize={props.fontSize} />
+					: <p className='noLoadMsg'>{message}</p>
 			}
 
 			<div style={loading !== false ? {display: "none"} : {display: "block"}}>
