@@ -1,7 +1,7 @@
 # Hacker Zeus: Hacker News Reader for the gods
 Progressive Web App for perusing Hacker News on desktop
 
-Check it out here: https://hackerzeus.appspot.com
+Check it out here: https://hackerzeus.com
 
 ## Introduction
 -	Hacker Zeus uses Hacker News' public API and Postlight's Mercury Parser to present Hacker News articles in a clean, single-page web app. No more hopping between websites when browsing Hacker News.
