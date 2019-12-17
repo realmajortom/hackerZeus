@@ -1,29 +1,32 @@
 {
-  "name": "zues-parsing-server",
-  "version": "1.1.1",
-  "description": "\"Mercury parsing server for use with Hacker Zeus\"",
+  "name": "hackerzeus-parser",
+  "version": "1.2.0",
+  "description": "Mercury parsing server for use with Hacker Zeus",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tggir1/hackerZeus.git"
   },
   "engines": {
-    "node": ">=12.13.0",
-    "npm": ">=6.13.0"
+    "node": "^12.0.0",
+    "npm": "^6.13.4"
   },
-  "author": "Thomas Girgenti",
-  "license": "ISC",
+  "author": "Thomas Girgenti <thomas@thomasg.dev> (https://thomasg.dev)",
+  "license": "MIT",
+  "private": true,
   "bugs": {
     "url": "https://github.com/tggir1/hackerZeus"
   },
-  "homepage": "https://github.com/tggir1/hackerZeus",
+  "homepage": "https://hackerzeus.com",
   "dependencies": {
     "@postlight/mercury-parser": ">=2.2.0",
     "body-parser": ">=1.19.0",
     "cors": ">=2.8.5",
+    "dotenv": "^8.2.0",
     "express": ">=4.17.1",
     "express-rate-limit": ">=5.0.0",
     "helmet": ">=3.21.2",

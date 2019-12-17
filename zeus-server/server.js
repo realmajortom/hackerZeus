@@ -1,3 +1,4 @@
+require('dotenv').config();
 const cors = require('cors');
 const helmet = require('helmet');
 const agent = require("user-agents");
@@ -7,13 +8,20 @@ const Mercury = require('@postlight/mercury-parser');
 
 const express = require('express');
 const path = require('path');
+
 const app = express();
 
+const PORT = process.env.PORT;
 
-// Trust proxy when running on GCP (necessary for request upgrades)
-app.set('trust proxy', 1);
 
-// Upgrade all insecure requests
+app.get('/_ah/warmup', (req, res) => {
+	console.log('Warming up');
+});
+
+
+// Https upgrade on App Engine
+app.set('trust proxy', true);
+
 app.use((req, res, next) => {
 	if (req.secure) {
 		next();
@@ -52,6 +60,7 @@ const genLimit = rateLimit({
 
 app.use('/parse', parseLimit);
 
+
 app.post('/parse', (req, res) => {
 	const ua = new agent({deviceCategory: req.body.agent}).data.userAgent;
 
@@ -79,9 +88,7 @@ app.post('/parse', (req, res) => {
 
 app.use('/*', genLimit);
 
-app.get('/*', (req, res) => {
-	res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+app.get('/*', (req, res) => {res.sendFile(path.join(__dirname, 'build', 'index.html'));});
 
 
-app.listen(8080, () => console.log(`Listening on port: 8080`));
+app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));

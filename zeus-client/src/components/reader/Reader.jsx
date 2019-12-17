@@ -23,7 +23,7 @@ export default function Reader(props) {
 				setLoading(false);
 			} else {
 				axios
-					.post(`https://hackerzeus.appspot.com/parse`, { url: data.url, type: 'markdown', agent: props.agent })
+					.post(`https://hackerzeus.com/parse`, { url: data.url, type: 'markdown', agent: props.agent })
 					.then(res => {
 						if (res.data.article) {
 							setArticle(res.data.article);
