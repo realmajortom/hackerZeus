@@ -1,4 +1,4 @@
-# Hacker Zeus: Hacker News Reader for the gods
+# Hacker Zeus: Hacker News Reader
 Progressive Web App for perusing Hacker News on desktop
 
 Check it out here: https://hackerzeus.com
