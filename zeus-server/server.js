@@ -14,11 +14,6 @@ const app = express();
 const PORT = process.env.PORT;
 
 
-app.get('/_ah/warmup', (req, res) => {
-	console.log('Warming up');
-});
-
-
 // Https upgrade on App Engine
 app.set('trust proxy', true);
 
