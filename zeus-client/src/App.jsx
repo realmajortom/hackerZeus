@@ -85,7 +85,7 @@ export default function App() {
   useEffect(() => {
     if (fontSize < 1 || fontSize > 100) {
       alert('What on earth...');
-      localStorage.setItem('fontSize', 12);
+      localStorage.setItem('fontSize', 11);
       setFontSize(11);
     } else {
       localStorage.setItem('fontSize', fontSize);
